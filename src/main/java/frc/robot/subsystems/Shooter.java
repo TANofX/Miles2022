@@ -31,8 +31,10 @@ public class Shooter extends SubsystemBase {
   private void configureFalcon(WPI_TalonFX shooterMotor) {
     shooterMotor.setNeutralMode(NeutralMode.Coast);
     shooterMotor.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, Constants.SHOOTER_CURRENT_LIMIT, Constants.SHOOTER_THRESHOLD_CURRENT, Constants.SHOOTER_THRESHOLD_TIMEOUT));
-    shooterMotor.configClosedloopRamp(1.0);
+    shooterMotor.configClosedloopRamp(0.05);
     shooterMotor.selectProfileSlot(0,0);
+    shooterMotor.configVoltageCompSaturation(9);
+    shooterMotor.enableVoltageCompensation(true);
 
     shooterMotor.config_kF(0, Constants.SHOOTER_F, 0);
     shooterMotor.config_kP(0, Constants.SHOOTER_P, 0);

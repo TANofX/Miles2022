@@ -87,7 +87,7 @@ public class Climber extends SubsystemBase {
       // determined experimentally
       public static enum RachelExtensionStates {
        //     FULLY_RETRACTED(0),
-            GABE_HEIGHT(-5000),
+            GABE_HEIGHT(-1000),
             FULLY_EXTENDED(190000),
             MID_BAR_HEIGHT(170000),
             TRUST_FALL_LOCATION(90000),
@@ -168,9 +168,9 @@ public class Climber extends SubsystemBase {
             falcon.selectProfileSlot(0,0);
         
             falcon.config_kF(0, 0.031, 0);
-            falcon.config_kP(0, 0.3, 0);
-            falcon.config_kI(0, 0.05, 0);
-            falcon.config_IntegralZone(0, 400);
+            falcon.config_kP(0, 0.06, 0);
+            falcon.config_kI(0, .0005, 0);
+            falcon.config_IntegralZone(0, 1000);
 
             falcon.config_kF(1, 0.034, 0);
             falcon.config_kP(1, 0.06, 0);
@@ -183,12 +183,12 @@ public class Climber extends SubsystemBase {
             falcon.config_IntegralZone(2, 0);
 
             falcon.config_kF(3, 0.043, 0);
-            falcon.config_kP(3, 0.22, 0);
-            falcon.config_kI(3, 0.0, 0);
-            falcon.config_IntegralZone(3, 1000);
+            falcon.config_kP(3, 0.04, 0);
+            falcon.config_kI(3, 0.05, 0);
+            falcon.config_IntegralZone(3, 2500);
 
             falcon.configMotionCruiseVelocity(Constants.CLIMBER_MAX_VELOCITY);
-            falcon.configMotionAcceleration(Constants.CLIMBER_MAX_VELOCITY / 2);
+            falcon.configMotionAcceleration(Constants.CLIMBER_MAX_ACCELERATION);
 
             falcon.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor, 0,0);
             
@@ -225,8 +225,8 @@ public class Climber extends SubsystemBase {
                   leftRachelFalcon.selectProfileSlot(3, 0);
                     rightRachelFalcon.selectProfileSlot(3, 0);
             } else if (!rachelLeftBarSensor.get() && !rachelRightBarSensor.get()) {
-                  leftRachelFalcon.selectProfileSlot(1, 0);
-                  rightRachelFalcon.selectProfileSlot(1, 0);
+                  leftRachelFalcon.selectProfileSlot(0, 0);
+                  rightRachelFalcon.selectProfileSlot(0, 0);
             }
       }
 

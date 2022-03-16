@@ -82,7 +82,8 @@ public final class Constants {
     public static double CLIMBER_THRESHOLD_TIMEOUT = 0.1;
 
     public static double CLIMB_HEIGHT_THRESHOLD = 400.0;
-    public static double CLIMBER_MAX_VELOCITY = 9000.0;
+    public static double CLIMBER_MAX_VELOCITY = 13000.0;
+    public static final double CLIMBER_MAX_ACCELERATION = 18000;
 
 
 
@@ -93,7 +94,7 @@ public final class Constants {
     public static final int SHOOTER_THRESHOLD_CURRENT = 60;
     public static final double SHOOTER_THRESHOLD_TIMEOUT = 0.01;
     public static final double SHOOTER_F = 0.045; //0.04;
-    public static final double SHOOTER_P = 0.125;
+    public static final double SHOOTER_P = 0.05;
     public static final double SHOOTER_I = 0.0010;//0.00125;
     public static final double SHOOTER_SPEED = 0.9;
     public static final double SHOOTER_SPIN_ERROR = 80;
@@ -120,6 +121,7 @@ public final class Constants {
     public static final int XBOX_PORT = 0;
     public static final int XBOX_RUNINTAKE_BUTTON = 3;
     public static final double XBOX_DEADBAND = 0.15;
+
 
     public static final class DriveConstants {
         public static final int kLeftMotor1Port = 4;
