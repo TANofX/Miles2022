@@ -87,7 +87,7 @@ public class Climber extends SubsystemBase {
       // determined experimentally
       public static enum RachelExtensionStates {
        //     FULLY_RETRACTED(0),
-            GABE_HEIGHT(-1000),
+            GABE_HEIGHT(0),
             FULLY_EXTENDED(190000),
             MID_BAR_HEIGHT(170000),
             TRUST_FALL_LOCATION(90000),
@@ -168,7 +168,7 @@ public class Climber extends SubsystemBase {
             falcon.selectProfileSlot(0,0);
         
             falcon.config_kF(0, 0.031, 0);
-            falcon.config_kP(0, 0.06, 0);
+            falcon.config_kP(0, 0.05, 0);
             falcon.config_kI(0, .0005, 0);
             falcon.config_IntegralZone(0, 1000);
 
