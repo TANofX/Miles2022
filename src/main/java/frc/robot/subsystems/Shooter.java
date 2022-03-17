@@ -41,7 +41,9 @@ public class Shooter extends SubsystemBase {
     shooterMotor.config_kI(0, Constants.SHOOTER_I, 0);
 
     shooterMotor.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor, 0,0);
-    shooterMotor.config_IntegralZone(0, 5.0 * Constants.SHOOTER_SPIN_ERROR);
+    integralZone = 5.0 * Constants.SHOOTER_SPIN_ERROR;
+
+    shooterMotor.config_IntegralZone(0, integralZone);
 
     shooterMotor.setSelectedSensorPosition(0);
   }
@@ -58,13 +60,18 @@ private WPI_TalonFX shooterFollower;
 private ShooterSpeeds targetShooterSpeeds = ShooterSpeeds.OFF;
 private static Shooter shooterInstance;
 
+private double pError;
+private double iError;
+private double dError;
 
+public double integralZone;
 
 
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    computePIDErrors();
   }
 
   public void startShooter(ShooterSpeeds SpeedToShoot) {
@@ -108,5 +115,29 @@ private static Shooter shooterInstance;
       shooterInstance = new Shooter();
     }
     return shooterInstance;
+  }
+
+  private void computePIDErrors() {
+    double currentError = targetShooterSpeeds.getMotorSpeed() - getShooterSpeed();
+    dError = (currentError - pError) * 10.0;
+    iError = (iError + currentError) * 10.0;
+
+    if (currentError > integralZone) {
+      iError = 0;
+    }
+
+    pError = currentError;
+  }
+
+  public double getPError() {
+    return pError;
+  }
+
+  public double getIError() {
+    return iError;
+  }
+
+  public double getDError() {
+    return dError;
   }
 }

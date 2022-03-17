@@ -132,6 +132,9 @@ public class RobotContainer {
     RobotLogging.getInstance().registerHistorian("Shooter Target Velocity", () -> Shooter.getInstance().getTargetSpeed().getMotorSpeed());
     RobotLogging.getInstance().registerImmediate("Shooter Velocity", () -> Shooter.getInstance().getShooterSpeed());
     RobotLogging.getInstance().registerImmediate("Shooter Output", () -> Shooter.getInstance().getShooterOutput());
+    RobotLogging.getInstance().registerImmediate("Shooter P Error", () -> Shooter.getInstance().getPError());
+    RobotLogging.getInstance().registerImmediate("Shooter I Error", () -> Shooter.getInstance().getIError());
+    RobotLogging.getInstance().registerImmediate("Shooter D Error", () -> Shooter.getInstance().getDError());
   }
 
   /**
