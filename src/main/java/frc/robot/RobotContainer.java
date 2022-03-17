@@ -112,6 +112,12 @@ public class RobotContainer {
     // Creates UsbCamera and MjpegServer [1] and connects them
     CameraServer.startAutomaticCapture();
 
+    configureLogging();
+    configureButtonBindings();
+  }
+
+  private void configureLogging() {
+    // Climber Logging
     RobotLogging.getInstance().registerEnumHistorian("Climber State", () -> Climber.getInstance().getCurrentState());
     RobotLogging.getInstance().registerEnumHistorian("Rachel Height", () -> Climber.getInstance().getExtensionState());
     RobotLogging.getInstance().registerImmediate("Rachel Position", () -> Climber.getInstance().getRachelPosition());
@@ -121,8 +127,11 @@ public class RobotContainer {
     RobotLogging.getInstance().registerImmediate("Rachel Left Position", () -> Climber.getInstance().getLeftRachelPosition());
     RobotLogging.getInstance().registerImmediate("Rachel Right Position", () -> Climber.getInstance().getRightRachelPosition());
 
-
-    configureButtonBindings();
+    // Shooter Logging
+    RobotLogging.getInstance().registerEnumHistorian("Shooter Target Speed", () -> Shooter.getInstance().getTargetSpeed());
+    RobotLogging.getInstance().registerHistorian("Shooter Target Velocity", () -> Shooter.getInstance().getTargetSpeed().getMotorSpeed());
+    RobotLogging.getInstance().registerImmediate("Shooter Velocity", () -> Shooter.getInstance().getShooterSpeed());
+    RobotLogging.getInstance().registerImmediate("Shooter Output", () -> Shooter.getInstance().getShooterOutput());
   }
 
   /**
