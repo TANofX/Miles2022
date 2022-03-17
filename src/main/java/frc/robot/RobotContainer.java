@@ -132,6 +132,7 @@ public class RobotContainer {
     RobotLogging.getInstance().registerHistorian("Shooter Target Velocity", () -> Shooter.getInstance().getTargetSpeed().getMotorSpeed());
     RobotLogging.getInstance().registerImmediate("Shooter Velocity", () -> Shooter.getInstance().getShooterSpeed());
     RobotLogging.getInstance().registerImmediate("Shooter Output", () -> Shooter.getInstance().getShooterOutput());
+    RobotLogging.getInstance().registerImmediate("Shooter Follower Output", () -> Shooter.getInstance().getFollowerOutput());
     RobotLogging.getInstance().registerImmediate("Shooter P Error", () -> Shooter.getInstance().getPError());
     RobotLogging.getInstance().registerImmediate("Shooter I Error", () -> Shooter.getInstance().getIError());
     RobotLogging.getInstance().registerImmediate("Shooter D Error", () -> Shooter.getInstance().getDError());
@@ -190,6 +191,8 @@ public class RobotContainer {
     SmartDashboard.putData("Gabe Height", new InstantCommand(() -> Climber.getInstance().moveRachelPosition(RachelExtensionStates.GABE_HEIGHT)));
     SmartDashboard.putData("Release Reach", new InstantCommand(() -> Climber.getInstance().moveRachelPosition(RachelExtensionStates.RELEASE_REACH)));
     SmartDashboard.putData("Full Extension", new InstantCommand(() -> Climber.getInstance().moveRachelPosition(RachelExtensionStates.FULLY_EXTENDED)));
+
+    SmartDashboard.putData("Drive Shooter", new InstantCommand(() -> Shooter.getInstance().shooterPercentMotor(0.75)));
   }
 
   /**

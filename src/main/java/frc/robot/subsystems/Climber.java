@@ -188,8 +188,8 @@ public class Climber extends SubsystemBase {
             falcon.config_IntegralZone(3, 2500);
 
             // NOTE:  These may mess everything up, change or set both to 1.0 if there is a real issue
-            falcon.configPeakOutputForward(0.5);
-            falcon.configPeakOutputReverse(1.0);
+            //falcon.configPeakOutputForward(1.0);
+            //falcon.configPeakOutputReverse(1.0);
 
             falcon.configMotionCruiseVelocity(Constants.CLIMBER_MAX_VELOCITY);
             falcon.configMotionAcceleration(Constants.CLIMBER_MAX_ACCELERATION);

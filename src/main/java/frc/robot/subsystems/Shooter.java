@@ -31,7 +31,7 @@ public class Shooter extends SubsystemBase {
   private void configureFalcon(WPI_TalonFX shooterMotor) {
     shooterMotor.setNeutralMode(NeutralMode.Coast);
     shooterMotor.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, Constants.SHOOTER_CURRENT_LIMIT, Constants.SHOOTER_THRESHOLD_CURRENT, Constants.SHOOTER_THRESHOLD_TIMEOUT));
-    shooterMotor.configClosedloopRamp(0.1);
+    shooterMotor.configClosedloopRamp(0.2);
     shooterMotor.selectProfileSlot(0,0);
     shooterMotor.configVoltageCompSaturation(9);
     shooterMotor.enableVoltageCompensation(true);
@@ -41,7 +41,7 @@ public class Shooter extends SubsystemBase {
     shooterMotor.config_kI(0, Constants.SHOOTER_I, 0);
 
     shooterMotor.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor, 0,0);
-    integralZone = 5.0 * Constants.SHOOTER_SPIN_ERROR;
+    integralZone = 2000.0;
 
     shooterMotor.config_IntegralZone(0, integralZone);
 
@@ -89,11 +89,19 @@ public double integralZone;
   }
 
   public double getShooterOutput() {
-    return shooterMotor.get();
+    return shooterMotor.getMotorOutputPercent();
+  }
+
+  public double getFollowerOutput() {
+    return shooterFollower.getMotorOutputPercent();
   }
 
   public double getShooterSpeed() {
     return shooterMotor.getSelectedSensorVelocity(0);
+  }
+
+  public void shooterPercentMotor(double percent) {
+    shooterMotor.set(ControlMode.PercentOutput, percent);    
   }
 
   public boolean correctSpeed() {

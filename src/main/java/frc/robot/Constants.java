@@ -93,9 +93,9 @@ public final class Constants {
     public static final int SHOOTER_CURRENT_LIMIT = 39;
     public static final int SHOOTER_THRESHOLD_CURRENT = 60;
     public static final double SHOOTER_THRESHOLD_TIMEOUT = 0.01;
-    public static final double SHOOTER_F = 0.045; //0.04;
-    public static final double SHOOTER_P = 0.05;
-    public static final double SHOOTER_I = 0.0010;//0.00125;
+    public static final double SHOOTER_F = 0.06669998; //0.04;
+    public static final double SHOOTER_P = 0.003;
+    public static final double SHOOTER_I = 0.0001;//0.00125;
     public static final double SHOOTER_SPEED = 0.9;
     public static final double SHOOTER_SPIN_ERROR = 80;
     public static final int PRIMARY_SHOOTER_ID = 10;
