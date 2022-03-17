@@ -164,7 +164,7 @@ public class Climber extends SubsystemBase {
       private void configureRachelMotors(WPI_TalonFX falcon) {
             falcon.setNeutralMode(NeutralMode.Brake);
             falcon.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, Constants.CLIMBER_CURRENT_LIMIT, Constants.CLIMBER_THRESHOLD_CURRENT, Constants.CLIMBER_THRESHOLD_TIMEOUT));
-            falcon.configClosedloopRamp(1.0);
+            falcon.configClosedloopRamp(0.1);
             falcon.selectProfileSlot(0,0);
         
             falcon.config_kF(0, 0.031, 0);
@@ -186,6 +186,10 @@ public class Climber extends SubsystemBase {
             falcon.config_kP(3, 0.04, 0);
             falcon.config_kI(3, 0.05, 0);
             falcon.config_IntegralZone(3, 2500);
+
+            // NOTE:  These may mess everything up, change or set both to 1.0 if there is a real issue
+            falcon.configPeakOutputForward(0.5);
+            falcon.configPeakOutputReverse(1.0);
 
             falcon.configMotionCruiseVelocity(Constants.CLIMBER_MAX_VELOCITY);
             falcon.configMotionAcceleration(Constants.CLIMBER_MAX_ACCELERATION);
@@ -222,8 +226,13 @@ public class Climber extends SubsystemBase {
 
       private void setRachelPIDSlot() {
             if (rachelLeftBarSensor.get() && rachelRightBarSensor.get()) {
-                  leftRachelFalcon.selectProfileSlot(3, 0);
-                    rightRachelFalcon.selectProfileSlot(3, 0);
+                  if (getGabeState() == GabeStates.CLOSED_WITH_BAR) {
+                        leftRachelFalcon.selectProfileSlot(2, 0);
+                        rightRachelFalcon.selectProfileSlot(2, 0);
+                  } else {
+                        leftRachelFalcon.selectProfileSlot(3, 0);
+                        rightRachelFalcon.selectProfileSlot(3, 0);
+                  }
             } else if (!rachelLeftBarSensor.get() && !rachelRightBarSensor.get()) {
                   leftRachelFalcon.selectProfileSlot(0, 0);
                   rightRachelFalcon.selectProfileSlot(0, 0);
@@ -244,7 +253,7 @@ public class Climber extends SubsystemBase {
             return GabeStates.UNKNOWN;
       }
 
-      private RachelExtensionStates getExtensionState() {
+      public RachelExtensionStates getExtensionState() {
             double currentVelocity = leftRachelFalcon.getSelectedSensorVelocity();
             double currentPosition = leftRachelFalcon.getSelectedSensorPosition();
 
@@ -265,6 +274,22 @@ public class Climber extends SubsystemBase {
            
             // Assume we are at a target position, because our velocity is small
             return RachelExtensionStates.findState(currentPosition);
+      }
+
+      public double getLeftRachelOutput() {
+            return leftRachelFalcon.get();
+      }
+
+      public double getRightRachelOutput() {
+            return rightRachelFalcon.get();
+      }
+
+      public double getLeftRachelPosition() {
+            return leftRachelFalcon.getSelectedSensorPosition();
+      }
+
+      public double getRightRachelPosition() {
+            return rightRachelFalcon.getSelectedSensorPosition();
       }
 
       public void stateMachineTwo() {
@@ -704,18 +729,13 @@ public class Climber extends SubsystemBase {
             stateMachineTwo();
             setRachelPIDSlot();
 
-            if (getRachelPosition() > 10) {
-                  resetRachelLatch();
-                  
-            }
-
-            SmartDashboard.putString("Current State", getCurrentState().name());
+            //SmartDashboard.putString("Current State", getCurrentState().name());
             SmartDashboard.putString("Rachel Bar State", getRachelBarState().name());
             SmartDashboard.putString("Gabe Bar State", getGabeState().name());
-            SmartDashboard.putString("Rachel Extention State", getExtensionState().name());
+            //SmartDashboard.putString("Rachel Extention State", getExtensionState().name());
             // This method will be called once per scheduler run
-            SmartDashboard.putNumber("Current Velocity", getRachelVelocity());
-            SmartDashboard.putNumber("Current Rachel Position", getRachelPosition());
+            //SmartDashboard.putNumber("Current Velocity", getRachelVelocity());
+            //SmartDashboard.putNumber("Current Rachel Position", getRachelPosition());
 
       }
 

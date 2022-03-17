@@ -25,6 +25,7 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Climber.ClimberState;
+import frc.robot.subsystems.Climber.RachelExtensionStates;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.commands.ClearBallHandler;
@@ -45,6 +46,7 @@ import frc.robot.subsystems.Shooter;
 import frc.robot.util.HatSwitchButton;
 import frc.robot.util.JoyStickAxisButton;
 import frc.robot.util.JoystickUtils;
+import frc.robot.util.logging.RobotLogging;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -109,6 +111,17 @@ public class RobotContainer {
     Shooter.getInstance();
     // Creates UsbCamera and MjpegServer [1] and connects them
     CameraServer.startAutomaticCapture();
+
+    RobotLogging.getInstance().registerEnumHistorian("Climber State", () -> Climber.getInstance().getCurrentState());
+    RobotLogging.getInstance().registerEnumHistorian("Rachel Height", () -> Climber.getInstance().getExtensionState());
+    RobotLogging.getInstance().registerImmediate("Rachel Position", () -> Climber.getInstance().getRachelPosition());
+    RobotLogging.getInstance().registerImmediate("Rachel Velocity", () -> Climber.getInstance().getRachelVelocity());
+    RobotLogging.getInstance().registerImmediate("Rachel Left", () -> Climber.getInstance().getLeftRachelOutput());
+    RobotLogging.getInstance().registerImmediate("Rachel Right", () -> Climber.getInstance().getRightRachelOutput());
+    RobotLogging.getInstance().registerImmediate("Rachel Left Position", () -> Climber.getInstance().getLeftRachelPosition());
+    RobotLogging.getInstance().registerImmediate("Rachel Right Position", () -> Climber.getInstance().getRightRachelPosition());
+
+
     configureButtonBindings();
   }
 
@@ -161,6 +174,10 @@ public class RobotContainer {
     // prepareClimbButton.whenPressed(new
     // SetClimberState(ClimberState.BABYS_FIRST_REACH));
     // simpleClimbButton.whenPressed(getSimpleClimbCommand());
+
+    SmartDashboard.putData("Gabe Height", new InstantCommand(() -> Climber.getInstance().moveRachelPosition(RachelExtensionStates.GABE_HEIGHT)));
+    SmartDashboard.putData("Release Reach", new InstantCommand(() -> Climber.getInstance().moveRachelPosition(RachelExtensionStates.RELEASE_REACH)));
+    SmartDashboard.putData("Full Extension", new InstantCommand(() -> Climber.getInstance().moveRachelPosition(RachelExtensionStates.FULLY_EXTENDED)));
   }
 
   /**
