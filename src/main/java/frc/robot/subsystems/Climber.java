@@ -88,8 +88,8 @@ public class Climber extends SubsystemBase {
       public static enum RachelExtensionStates {
        //     FULLY_RETRACTED(0),
             GABE_HEIGHT(0),
-            FULLY_EXTENDED(190000),
-            MID_BAR_HEIGHT(170000),
+            FULLY_EXTENDED(180000),
+            MID_BAR_HEIGHT(165000),
             TRUST_FALL_LOCATION(90000),
             RELEASE_REACH(45000),
             UNKNOWN(-100000),
@@ -183,13 +183,13 @@ public class Climber extends SubsystemBase {
             falcon.config_IntegralZone(2, 0);
 
             falcon.config_kF(3, 0.043, 0);
-            falcon.config_kP(3, 0.04, 0);
-            falcon.config_kI(3, 0.05, 0);
-            falcon.config_IntegralZone(3, 2500);
+            falcon.config_kP(3, 0.02, 0);
+            falcon.config_kI(3, 0.0002, 0);
+            falcon.config_IntegralZone(3, 10000);
 
             // NOTE:  These may mess everything up, change or set both to 1.0 if there is a real issue
-            //falcon.configPeakOutputForward(1.0);
-            //falcon.configPeakOutputReverse(1.0);
+            falcon.configPeakOutputForward(1.0);
+            falcon.configPeakOutputReverse(-1.0);
 
             falcon.configMotionCruiseVelocity(Constants.CLIMBER_MAX_VELOCITY);
             falcon.configMotionAcceleration(Constants.CLIMBER_MAX_ACCELERATION);
@@ -277,11 +277,11 @@ public class Climber extends SubsystemBase {
       }
 
       public double getLeftRachelOutput() {
-            return leftRachelFalcon.get();
+            return leftRachelFalcon.getMotorOutputPercent();
       }
 
       public double getRightRachelOutput() {
-            return rightRachelFalcon.get();
+            return rightRachelFalcon.getMotorOutputPercent();
       }
 
       public double getLeftRachelPosition() {

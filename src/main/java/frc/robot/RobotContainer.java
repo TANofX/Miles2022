@@ -119,7 +119,7 @@ public class RobotContainer {
   private void configureLogging() {
     // Climber Logging
     RobotLogging.getInstance().registerEnumHistorian("Climber State", () -> Climber.getInstance().getCurrentState());
-    RobotLogging.getInstance().registerEnumHistorian("Rachel Height", () -> Climber.getInstance().getExtensionState());
+    RobotLogging.getInstance().registerEnumImmediate("Rachel Height", () -> Climber.getInstance().getExtensionState());
     RobotLogging.getInstance().registerImmediate("Rachel Position", () -> Climber.getInstance().getRachelPosition());
     RobotLogging.getInstance().registerImmediate("Rachel Velocity", () -> Climber.getInstance().getRachelVelocity());
     RobotLogging.getInstance().registerImmediate("Rachel Left", () -> Climber.getInstance().getLeftRachelOutput());
