@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
@@ -33,6 +34,7 @@ import frc.commands.CloseHighGoalShoot;
 import frc.commands.DefaultBallHandler;
 import frc.commands.DriveXinches;
 import frc.commands.FarHighGoalShoot;
+import frc.commands.IntakeRumble;
 import frc.commands.LaunchpadGoalShoot;
 import frc.commands.LowGoalShoot;
 import frc.commands.RunIntake;
@@ -42,6 +44,7 @@ import frc.commands.StopShooter;
 import frc.robot.subsystems.BallHandler;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.RumbleRoar;
 import frc.robot.subsystems.Shooter;
 import frc.robot.util.HatSwitchButton;
 import frc.robot.util.JoyStickAxisButton;
@@ -114,6 +117,8 @@ public class RobotContainer {
 
     configureLogging();
     configureButtonBindings();
+    RumbleRoar.getInstance().setXbox(m_xbox);
+    RumbleRoar.getInstance().setDefaultCommand(new IntakeRumble());
   }
 
   private void configureLogging() {

@@ -23,9 +23,9 @@ public class RumbleRoar extends SubsystemBase {
 
   }
 
-  public void startRumble() {
-    xbox.setRumble(RumbleType.kLeftRumble, 1);
-    xbox.setRumble(RumbleType.kRightRumble, 1);
+  public void startRumble(double strength) {
+    xbox.setRumble(RumbleType.kLeftRumble, strength);
+    xbox.setRumble(RumbleType.kRightRumble, strength);
   }
 
   public void stopRumble() {
