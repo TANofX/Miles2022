@@ -81,7 +81,7 @@ public final class Constants {
     public static double CLIMBER_CURRENT_LIMIT = 39;
     public static double CLIMBER_THRESHOLD_TIMEOUT = 0.1;
 
-    public static double CLIMB_HEIGHT_THRESHOLD = 400.0;
+    public static double CLIMB_HEIGHT_THRESHOLD = 1000.0;
     public static double CLIMBER_MAX_VELOCITY = 13000.0;
     public static final double CLIMBER_MAX_ACCELERATION = 18000;
 

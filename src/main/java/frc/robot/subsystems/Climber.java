@@ -87,8 +87,8 @@ public class Climber extends SubsystemBase {
       // determined experimentally
       public static enum RachelExtensionStates {
        //     FULLY_RETRACTED(0),
-            GABE_HEIGHT(0),
-            FULLY_EXTENDED(180000),
+            GABE_HEIGHT(-20000),
+            FULLY_EXTENDED(198000),
             MID_BAR_HEIGHT(165000),
             TRUST_FALL_LOCATION(90000),
             RELEASE_REACH(45000),
@@ -726,6 +726,9 @@ public class Climber extends SubsystemBase {
 
       @Override
       public void periodic() {
+            if (getRachelPosition() > 5000) {
+                  resetRachelLatch();
+            }
             stateMachineTwo();
             setRachelPIDSlot();
 
