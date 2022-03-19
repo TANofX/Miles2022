@@ -13,9 +13,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /** Add your docs here. */
 public class RobotLogging {
     private class LogValue<K> {
+        private static final int LOG_FREQUENCY = 20;
+
         protected String keyValue;
         private Supplier<K> valueSupplier;
         private boolean checkHistory;
+        private boolean throttleLog;
+        private int loopCount;
         protected K currentValue = null;
 
         protected LogValue(String key, Supplier<K> supplier, boolean checkHistory) {
@@ -24,9 +28,22 @@ public class RobotLogging {
             this.checkHistory = checkHistory;
         }
 
+        protected LogValue(String key, Supplier<K> supplier, boolean checkHistory, boolean throttle) {
+            this(key, supplier, checkHistory);
+            throttleLog = throttle;
+            loopCount = 0;
+        }
+
         protected void log() {
             if (checkHistory) {
                 if (!getValue().equals(currentValue)) {
+                    currentValue = getValue();
+                    logToSmartdashboard();
+                }
+            } else if (throttleLog) {
+                loopCount++;
+                if (loopCount > LOG_FREQUENCY) {
+                    loopCount = 0;
                     currentValue = getValue();
                     logToSmartdashboard();
                 }
@@ -62,6 +79,10 @@ public class RobotLogging {
             super(key, supplier, checkHistory);
         }
 
+        protected LogEnumValue(String key, Supplier<Enum<?>> supplier, boolean checkHistory, boolean throttle) {
+            super(key, supplier, checkHistory, throttle);
+        }
+
         protected String getStringValue() {
             return currentValue.name();
         }
@@ -84,16 +105,16 @@ public class RobotLogging {
         logList.add(newLog);
     }
 
-    public void registerImmediate(String key, Supplier<Double> valueSupplier) {
-        registerLogger(new LogValue<Double>(key, valueSupplier, false));
+    public void registerImmediate(String key, Supplier<Double> valueSupplier, boolean throttle) {
+        registerLogger(new LogValue<Double>(key, valueSupplier, false, throttle));
     }
 
     public void registerHistorian(String key, Supplier<Double> valueSupplier) {
         registerLogger(new LogValue<Double>(key, valueSupplier, true));
     }
 
-    public void registerEnumImmediate(String key, Supplier<Enum<?>> valueSupplier) {
-        registerLogger(new LogEnumValue(key, valueSupplier, false));
+    public void registerEnumImmediate(String key, Supplier<Enum<?>> valueSupplier, boolean throttle) {
+        registerLogger(new LogEnumValue(key, valueSupplier, false, throttle));
     }
 
     public void registerEnumHistorian(String key, Supplier<Enum<?>> valueSupplier) {

@@ -80,14 +80,14 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   private void configureDriveMotor(WPI_TalonFX motor) {
-    motor.configVoltageCompSaturation(9.0);
+    motor.configVoltageCompSaturation(9.5);
     motor.enableVoltageCompensation(true);
     motor.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 
                                                                         Constants.DriveConstants.kCurrentLimit, 
                                                                         Constants.DriveConstants.kThresholdCurrent, 
                                                                         Constants.DriveConstants.kThresholdTimeout));
     motor.setNeutralMode(NeutralMode.Coast);
-    motor.configOpenloopRamp(0.15);
+    motor.configOpenloopRamp(0.25);
   }
 
   @Override

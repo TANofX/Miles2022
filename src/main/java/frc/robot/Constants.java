@@ -161,9 +161,9 @@ public final class Constants {
         // Example value only - as above, this must be tuned for your drive!
         public static final double kPDriveVel = 0.29187;
         public static final double kMinimumTurnRate = 0.15;
-        public static final double kThresholdCurrent = 40.0;
+        public static final double kThresholdCurrent = 35.0;
         public static final double kThresholdTimeout = 0.1;
-        public static final double kCurrentLimit = 40.0;
+        public static final double kCurrentLimit = 35.0;
       }
     
       public static final class OIConstants {

@@ -124,23 +124,23 @@ public class RobotContainer {
   private void configureLogging() {
     // Climber Logging
     RobotLogging.getInstance().registerEnumHistorian("Climber State", () -> Climber.getInstance().getCurrentState());
-    RobotLogging.getInstance().registerEnumImmediate("Rachel Height", () -> Climber.getInstance().getExtensionState());
-    RobotLogging.getInstance().registerImmediate("Rachel Position", () -> Climber.getInstance().getRachelPosition());
-    RobotLogging.getInstance().registerImmediate("Rachel Velocity", () -> Climber.getInstance().getRachelVelocity());
-    RobotLogging.getInstance().registerImmediate("Rachel Left", () -> Climber.getInstance().getLeftRachelOutput());
-    RobotLogging.getInstance().registerImmediate("Rachel Right", () -> Climber.getInstance().getRightRachelOutput());
-    RobotLogging.getInstance().registerImmediate("Rachel Left Position", () -> Climber.getInstance().getLeftRachelPosition());
-    RobotLogging.getInstance().registerImmediate("Rachel Right Position", () -> Climber.getInstance().getRightRachelPosition());
+    RobotLogging.getInstance().registerEnumHistorian("Rachel Height", () -> Climber.getInstance().getExtensionState());
+    RobotLogging.getInstance().registerImmediate("Rachel Position", () -> Climber.getInstance().getRachelPosition(), true);
+    RobotLogging.getInstance().registerImmediate("Rachel Velocity", () -> Climber.getInstance().getRachelVelocity(), true);
+    RobotLogging.getInstance().registerImmediate("Rachel Left", () -> Climber.getInstance().getLeftRachelOutput(), true);
+    RobotLogging.getInstance().registerImmediate("Rachel Right", () -> Climber.getInstance().getRightRachelOutput(), true);
+    RobotLogging.getInstance().registerImmediate("Rachel Left Position", () -> Climber.getInstance().getLeftRachelPosition(), true);
+    RobotLogging.getInstance().registerImmediate("Rachel Right Position", () -> Climber.getInstance().getRightRachelPosition(), true);
 
     // Shooter Logging
     RobotLogging.getInstance().registerEnumHistorian("Shooter Target Speed", () -> Shooter.getInstance().getTargetSpeed());
     RobotLogging.getInstance().registerHistorian("Shooter Target Velocity", () -> Shooter.getInstance().getTargetSpeed().getMotorSpeed());
-    RobotLogging.getInstance().registerImmediate("Shooter Velocity", () -> Shooter.getInstance().getShooterSpeed());
-    RobotLogging.getInstance().registerImmediate("Shooter Output", () -> Shooter.getInstance().getShooterOutput());
-    RobotLogging.getInstance().registerImmediate("Shooter Follower Output", () -> Shooter.getInstance().getFollowerOutput());
-    RobotLogging.getInstance().registerImmediate("Shooter P Error", () -> Shooter.getInstance().getPError());
-    RobotLogging.getInstance().registerImmediate("Shooter I Error", () -> Shooter.getInstance().getIError());
-    RobotLogging.getInstance().registerImmediate("Shooter D Error", () -> Shooter.getInstance().getDError());
+    RobotLogging.getInstance().registerImmediate("Shooter Velocity", () -> Shooter.getInstance().getShooterSpeed(), true);
+    RobotLogging.getInstance().registerImmediate("Shooter Output", () -> Shooter.getInstance().getShooterOutput(), true);
+    RobotLogging.getInstance().registerImmediate("Shooter Follower Output", () -> Shooter.getInstance().getFollowerOutput(), true);
+    RobotLogging.getInstance().registerImmediate("Shooter P Error", () -> Shooter.getInstance().getPError(), true);
+    RobotLogging.getInstance().registerImmediate("Shooter I Error", () -> Shooter.getInstance().getIError(), true);
+    RobotLogging.getInstance().registerImmediate("Shooter D Error", () -> Shooter.getInstance().getDError(), true);
   }
 
   /**
