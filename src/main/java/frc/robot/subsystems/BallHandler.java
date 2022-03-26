@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.schedulers.ConcurrentScheduler;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -48,6 +49,7 @@ public class BallHandler extends SubsystemBase {
     transitMotor = new CANSparkMax(Constants.TRANSIT_MOTOR_ID, MotorType.kBrushless);
     transitMotor.setSmartCurrentLimit(29, 10);
     transitMotor.setOpenLoopRampRate(0.05);
+    transitMotor.setIdleMode(IdleMode.kBrake);
   }
 
   /**

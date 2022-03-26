@@ -11,6 +11,7 @@ import commands.SetClimberState;
 import commands.ToggleGabeClaw;
 import commands.ToggleRachelReach;
 import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.util.sendable.Sendable;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
@@ -113,7 +114,8 @@ public class RobotContainer {
     Intake.getInstance();
     Shooter.getInstance();
     // Creates UsbCamera and MjpegServer [1] and connects them
-    CameraServer.startAutomaticCapture();
+    UsbCamera c = CameraServer.startAutomaticCapture();
+    c.setResolution(320, 240);
 
     configureLogging();
     configureButtonBindings();
@@ -177,7 +179,7 @@ public class RobotContainer {
     closeHighGoalButton.whenPressed(new CloseHighGoalShoot());
     farHighGoalButton.whenPressed(new FarHighGoalShoot());
     launchpadGoalShoot.whenPressed(new LaunchpadGoalShoot());
-    shootOne.whenPressed(new ShootOne());
+    shootOne.whenPressed(new ClearBallHandler());
     shootAll.whenPressed(new ShootAll());
 
     runIntake.whileActiveContinuous(new RunIntake());
@@ -209,12 +211,12 @@ public class RobotContainer {
     // An ExampleCommand will run in autonomous
     return new SequentialCommandGroup( new CalibrateRobot(),
                                        new WaitCommand(1.0),
-                                       new LaunchpadGoalShoot(),
+                                       new FarHighGoalShoot(),
                                        new ShootAll(),
                                        new WaitCommand(0.5),
                                        new ParallelDeadlineGroup(new SequentialCommandGroup(new WaitCommand(1.0), new DriveXinches(100.0)), new RunIntake()), 
-                                       new DriveXinches(-88),
-                                       new CloseHighGoalShoot(),
+                                       new DriveXinches(-97),
+                                       new FarHighGoalShoot(),
                                        new ShootAll(),
                                        new WaitCommand(0.5)
                                        );
