@@ -62,11 +62,7 @@ public class RobotContainer {
 
   final JoystickButton toggleGabe = new JoystickButton(m_stick, Constants.FLIGHTSTICK_GABE_PNEUMATICS_BUTTON);
   final JoystickButton toggleRachel = new JoystickButton(m_stick, Constants.FLIGHTSTICK_RACHEL_REACH_PNEUMATICS_BUTTON);
-  // final JoystickButton highClimb = new JoystickButton(m_stick,
-  // Constants.CLIMB_HIGH_BAR);
-  // final JoystickButton traversalClimb = new JoystickButton(m_stick,
-  // Constants.CLIMB_TRAVERSAL_BAR);
-
+ 
   private JoystickButton stopShooterButton = new JoystickButton(m_stick, Constants.FLIGHTSTICK_SHOOTER_STOP_BUTTON);
   private JoystickButton lowGoalShootButton = new JoystickButton(m_stick, Constants.FLIGHTSTICK_LOW_SHOT_BUTTON);
   private JoystickButton closeHighGoalButton = new JoystickButton(m_stick, Constants.FLIGHTSTICK_HIGH_GOAL_BUTTON);
@@ -75,18 +71,9 @@ public class RobotContainer {
   private JoystickButton shootOne = new JoystickButton(m_stick, Constants.FLIGHTSTICK_SHOOT_ONE_BUTTON);
   private JoystickButton shootAll = new JoystickButton(m_stick, Constants.FLIGHTSTICK_SHOOT_ALL_BUTTON);
 
-  // final JoystickButton cancelClimber = new JoystickButton(m_stick,
-  // Constants.CANCEL_CLIMBER);
   final JoystickButton calibrateClimber = new JoystickButton(m_stick, Constants.FLIGHTSTICK_CALIBRATE_CLIMBER_BUTTON);
   final JoystickButton lockRachelMoveJoystick = new JoystickButton(m_stick,
       Constants.FLIGHTSTICK_LOCK_RACHEL_MOVE_JOYSTICK_BUTTON);
-
-  // private final HatSwitchButton prepareClimbButton =
-  // JoystickUtils.getHatSwitchButton(m_stick,
-  // Constants.FLIGHTSTICK_HAT_PREPARE_TO_CLIMB_DIRECTION);
-  // private final HatSwitchButton simpleClimbButton =
-  // JoystickUtils.getHatSwitchButton(m_stick,
-  // Constants.FLIGHTSTICK_HAT_SIMPLE_CLIMB_DIRECTION);
 
   private final JoyStickAxisButton runIntake = new JoyStickAxisButton(m_xbox, Constants.XBOX_RUNINTAKE_BUTTON);
   private JoystickButton prepareClimbXbox = new JoystickButton(m_xbox, XboxController.Button.kA.value);
@@ -121,24 +108,24 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    toggleGabe.whenPressed(new ToggleGabeClaw());
-    toggleRachel.whenPressed(new ToggleRachelReach());
+    //toggleGabe.whenPressed(new ToggleGabeClaw());
+    //toggleRachel.whenPressed(new ToggleRachelReach());
 
     // highClimb.whenPressed(getHighClimbCommand());
     // traversalClimb.whenPressed(getTraversalClimbCommand());
 
     // cancelClimber.whenPressed(new CancelClimber());
-    calibrateClimber.whenPressed(new CalibrateRobot());
+    //calibrateClimber.whenPressed(new CalibrateRobot());
     clearShooterXbox.whenPressed(new ClearBallHandler());
 
-    lockRachelMoveJoystick.whileHeld(new MoveRachelWithJoystick(Climber.getInstance(), m_stick));
+    //lockRachelMoveJoystick.whileHeld(new MoveRachelWithJoystick(Climber.getInstance(), m_stick));
 
     DriveSubsystem.getInstance().setDefaultCommand(new RunCommand(
         () -> DriveSubsystem.getInstance().curvatureDrive(
             -1.0 * JoystickUtils.scaleDeadband(m_xbox.getLeftY(), Constants.XBOX_DEADBAND)
-                / (m_xbox.getLeftTriggerAxis() + 1.0),
+                * (m_xbox.getLeftTriggerAxis() + 1.0) / 4.0,
             JoystickUtils.scaleDeadband(m_xbox.getRightX(), Constants.XBOX_DEADBAND)
-                / (m_xbox.getLeftTriggerAxis() + 1.0)),
+                * (m_xbox.getLeftTriggerAxis() + 1.0) / 4.0),
         DriveSubsystem.getInstance()));
 
     stopShooterButton.whenPressed(new StopShooter());
@@ -151,13 +138,13 @@ public class RobotContainer {
 
     runIntake.whileActiveContinuous(new RunIntake());
 
-    prepareClimbXbox.whenPressed(new SetClimberState(ClimberState.BABYS_FIRST_REACH));
-    highBarXbox.whenPressed(getHighClimbCommand());
-    traversalXbox.whenPressed(getTraversalClimbCommand());
-    traversalFromHighStick.whenPressed(getTransversalFromHighCommand());
-    highFromMidXbox.whenPressed(getHighFromMidCommand());
+    //prepareClimbXbox.whenPressed(new SetClimberState(ClimberState.BABYS_FIRST_REACH));
+    //highBarXbox.whenPressed(getHighClimbCommand());
+    //traversalXbox.whenPressed(getTraversalClimbCommand());
+    //traversalFromHighStick.whenPressed(getTransversalFromHighCommand());
+    //highFromMidXbox.whenPressed(getHighFromMidCommand());
     toggleColorSensor.whenPressed(new InstantCommand(() -> Intake.getInstance().toggleColorSensor()));
-    simpleClimbXbox.whenPressed(getSimpleClimbCommand());
+    //simpleClimbXbox.whenPressed(getSimpleClimbCommand());
     // prepareClimbButton.whenPressed(new
     // SetClimberState(ClimberState.BABYS_FIRST_REACH));
     // simpleClimbButton.whenPressed(getSimpleClimbCommand());
